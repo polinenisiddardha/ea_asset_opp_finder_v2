@@ -232,7 +232,7 @@ router.get('/list', (req,res) => {
 router.get("/approveProcessById", (req, res)=>{
     console.log(req.query.Proc_Id);
     if(req.query.Proc_Id){
-  ProcessModel.updateOne({ Proc_Id: req.query.Proc_id },{ Status: "APPROVED" }, (err, doc) => {
+  ProcessModel.updateOne({ Proc_Id: req.query.Proc_Id },{ Status: "APPROVED" }, (err, doc) => {
       //console.log(doc)
       if (!err) { res.send("APPROVED Successfully"); }         
     else
