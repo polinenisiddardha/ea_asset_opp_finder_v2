@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<title>Questionaire</title>  
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="JS/fte.js"></script>
+  <link rel="stylesheet" type="text/css" href="../css/reference_css.css">
+  <link rel="stylesheet" type="text/css" href="../css/Capture.css">
+  <style>
+    
+    
+    
+    
+    #submit{
+      padding-top: 10ch;
+    }
+  </style>
+  
+
+
+
+
+
+
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>                        
+            </button>
+            
+              <img  class="navbar-brand" src="mphasis_logo.jpg">
+            
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="/user/adminHome">Home</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Process Discovery<span class="caret"></span></a>
+                 <ul class="dropdown-menu" role="menu">
+                          <li><a href="/user/captureProcess"><b>Capture Process</b></a></li>
+              <li><a href="/user/processViewById"><b>View Process</b></a></li>
+              <li><a href="/user/approveProcess"><b>Approve Process</b></a></li>
+              <li><a href="/user/processPrioritization"><b>Process Prioritization</b></a></li>
+                    
+                    
+                 </ul>
+             </li>
+                      <li><a href="/user/userManagement">User Management</a></li>
+        <li><a href="/user/About">About</a></li>
+        <li><a href="/user/Contact">Contact</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="/"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      
+      <div class="jumbotron" id="cp">
+        <div class="container text-center" >
+        <h2 id="pc">Approve Process</h2>
+        
+        </div>
+      </div>
+  <div><label></label></div>
+  <div><label></label></div>
+  <div><label></label></div>
+  <div><label></label></div>
+  <div><label></label></div>
+  <div><label></label></div>
+  <div><label></label></div>
+
+<div class="container text-center" id="abc">
+    
+        
+    
+  <form action="/user/approveProcessById"+Proc_Id>
+    
+    <div class="text-center">
+        <label for="fname">Enter Process Id</label>
+      </div>
+        <div class="text-center">
+      
+        <input type="text-center"   id="cname" name="Proc_Id" maxlength="30"><br>
+      <font color="red">{{viewtitle}}</font>
+      </div>
+        <div class="text-center" id="submit">
+          
+          
+                
+          <input type="submit" class="btn btn-success" value="Approve"> 
+      
+        </div>
+       
+      
+      </form>
+    </div>
+    
+    
+            
+            
+          
+          
+          
+          
+          
+  </form>
+  
+</body>
+</html> 
