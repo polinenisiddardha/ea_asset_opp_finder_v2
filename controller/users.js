@@ -8,7 +8,7 @@ const ProcessModel = mongoose.model('Process');
 const GoogleCharts= require("google-charts");
 const session = require('express-session');
 application.use(session({secret: 'ssshhhhh',saveUninitialized: true,resave: true}));
-const expressValidator = require('express-validator');
+
 mongoose.set('useFindAndModify', false);
 // import {GoogleCharts} from 'google-charts';
 
@@ -69,7 +69,7 @@ router.post("/checkUser",(req,res) => {
         // auth not successful, because result is null
         res.render("index",{viewtitle :"Invalid User"}) // redirect to login page
     });
-}
+    }
 });
 router.post("/adduser", (req, res)=>{
     if(req.body.password==req.body.cpassword){
