@@ -48,7 +48,12 @@ router.get("/processPrioritization", (req, res)=>{
 router.get("/register", (req, res)=>{
     res.render("register")
 });
-
+router.get("/About", (req, res)=>{
+    res.render("About")
+});
+router.get("/Contact", (req, res)=>{
+    res.render("Contact")
+});
 router.post("/checkUser",(req,res) => {
     // var sess=req.session;
     if(req.body.userName=="ADMIN"&&req.body.password=="ADMIN$1"){

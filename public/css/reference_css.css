@@ -23,6 +23,11 @@
 	padding-top: 9rem;
 	padding-bottom: 9rem;
 }
+ .col-sm-6 {
+	padding-top: 5rem;
+	padding-bottom: 5rem;
+} 
+ 
 
 .navbar-brand {
   padding-top: 2px; 

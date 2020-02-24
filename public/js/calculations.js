@@ -98,6 +98,10 @@ function isNumberKey(evt){
       }
       
       } 
+      function goBack() {
+        window.history.back();
+      }
+      
       function validnum(a) { 
         if(a < 0 || a > 100) 
             return false;

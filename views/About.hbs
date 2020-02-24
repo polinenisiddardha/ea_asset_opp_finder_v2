@@ -2,10 +2,11 @@
 <html lang="en">
 
 <head>
-<title>Opportunity Finder</title>  
+<title>Opportuntity Finder</title>  
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="JS/fte.js"></script>
@@ -13,15 +14,21 @@
   <link rel="stylesheet" type="text/css" href="../css/Capture.css">
   <script src="../js/calculations.js"></script>
   <style>
-    
-    
-    
-    
-    #submit{
-      padding-top: 10ch;
-    }
+    .paddingTB60 {padding:60px 0px 60px 0px;}
+.gray-bg {background: #F1F1F1 !important;}
+.about-title {}
+.about-title h1 {color: #535353; font-size:45px;font-weight:600;}
+.about-title span {color: rgb(95, 95, 190); font-size:45px;font-weight:700;}
+.about-title h3 {color: #535353; font-size:23px;margin-bottom:24px;}
+.about-title p {color: #7a7a7a;line-height: 1.8;margin: 0 0 15px;}
+.about-paddingB {padding-bottom: 12px;}
+.about-img {padding-left: 57px;}
+#allign1{
+  padding-top: 1rem;
+}
+
+
   </style>
-  
 
 
 
@@ -69,55 +76,50 @@
       
       <div class="jumbotron" id="cp">
         <div class="container text-center" >
-        <h1 id="pc">Approve Process</h1>
-        <p>Approve Already Captured Processes</p>
+        <h1 id="pc">About Opportunity Finder</h1>
+        <p>To know more about the App</p>
         
         </div>
       </div>
-       <div class="text-right">
+      <div class="text-right">
           
           
                 
-             <button type="button" onclick="goBack()" class="btn btn-success">Back</button>  
+            <button type="button" onclick="goBack()" class="btn btn-success">Back</button>  
         
           </div>
-  <div id="allign">
-<div class="container text-center" id="abc">
-    
-        
-    
-  <form action="/user/approveProcessById"+Proc_Id id="allign">
-    
-    <div class="text-center">
-        <label for="fname">Enter Process Id</label>
-      </div>
-        <div class="text-center">
-      
-        <input type="text-center"   id="cname" name="Proc_Id" maxlength="30"><br>
-      <font color="red">{{viewtitle}}</font><font color="green">{{viewresult}}</font>
-      </div>
-        <div class="text-center" id="submit">
-          
-          
-                
-          <input type="submit" class="btn btn-success" value="Approve"> 
-      
-        </div>
-       
-      
-      </form>
+  <div id="allign1">
+
+<div class="about-section paddingTB60 gray-bg">
+                <div class="container">
+                    <div class="row">
+						<div class="col-md-12">
+							<div class="about-title clearfix">
+								
+								
+								<p class="about-paddingB"><h4>Opportunity Finder is a Mphasis proprietary Process Assessment Toolkit. The primary purpose of Opportunity Finder is to capture process details during assessments and use proprietary algorithms/models to Identify Automation Opportunities, Propose Delivery Plans, Formulate Bussiness Case etc.. for clients embarking on automation journey.</h4></p>
+								
+						
+							</div>
+						</div>
+							
+                    </div>
+                </div>
+            </div>
     </div>
     
     
             
             
+    <footer class="container-fluid text-center">
+      <p>&copy; All Rights Reserved Mphasis Limited 2020</p>
+    </footer>    
+          
+     
           
           
-          
-          
-          
-  </form>
-  </div>
+  
+  
   
 </body>
 </html> 

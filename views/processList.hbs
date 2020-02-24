@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-<title>Questionaire</title>  
+<title>Opportunity Finder</title>  
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -11,6 +11,7 @@
   <script src="JS/fte.js"></script>
   <link rel="stylesheet" type="text/css" href="../css/reference_css.css">
   <link rel="stylesheet" type="text/css" href="../css/Capture.css">
+  <script src="../js/calculations.js"></script>
   
   
 
@@ -47,8 +48,8 @@
                  </ul>
              </li>
               <li><a href="/user/userManagement">User Management</a></li>
-                   <li><a href="#">About</a></li>
-                   <li><a href="#">Contact</a></li>
+                   <li><a href="/user/About">About</a></li>
+                   <li><a href="/user/Contact">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li><a href="/"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
@@ -64,6 +65,13 @@
         </div>
       </div>
 <h3>{{viewTitle}}</h3>
+ <div class="text-right">
+          
+          
+                
+             <button type="button" onclick="goBack()" class="btn btn-success">Back</button>  
+        
+          </div>
 <div class="container" id="abc">
    
     <div class="row">
@@ -262,7 +270,7 @@
           
           
                 
-            <input type="submit" class="btn btn-success" value="Submit"> 
+            {{!-- <input type="submit" class="btn btn-success" value="Submit">  --}}
         
           </div>
           </div>
