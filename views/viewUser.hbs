@@ -50,13 +50,13 @@
                        <li><a href="/user/captureProcess"><b>Capture Process</b></a></li>
               <li><a href="/user/processViewById"><b>View Process</b></a></li>
               <li><a href="/user/approveProcess"><b>Approve Process</b></a></li>
-              <li><a href="/user/processPrioritization"><b>Process Prioritization</b></a></li>
+              <li><a href="/user/list"><b>Process Prioritization</b></a></li>
                     
                  </ul>
              </li>
                    <li><a href="/user/userManagement">User Management</a></li>
-                   <li><a href="/user/About">About</a></li>
-                   <li><a href="/user/Contact">Contact</a></li>
+                   <li><a href="#">About</a></li>
+                   <li><a href="#">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li><a href="/"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
@@ -92,7 +92,7 @@
               <th scope="col">User Name</th>
               <th scope="col">Employee-Id</th>
               <th scope="col">E-mail</th>
-              <th scope="col">Actions</th>
+              {{!-- <th scope="col">Actions</th> --}}
             </tr>
           </thead>
           <tbody>
@@ -101,10 +101,10 @@
               <td>{{this.userName}}</td>
               <td>{{this.employeeId}}</td>
               <td>{{this.email}}</td>
-              <td>
+              {{!-- <td>
                 <a href="/course/{{this._id}}" class="glyphicon glyphicon-pencil" color></a>
                 <a href="/course/delete/{{this._id}}" onclick="return confirm('Are you sure to delete this record ?');" class="glyphicon glyphicon-trash"></a>
-            </td>
+            </td> --}}
             </tr>
            {{/each}}
           </tbody>

@@ -63,6 +63,53 @@ function ValidateRange1() {
     }
     return true;
 }
+// function isAlphabet(evt){
+//     var charCode = (evt.which) ? evt.which : evt.keyCode
+//    if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123)){
+//        alert("Please enter alphabets as input")
+      
+      
+//           return false;
+//           return true;  
+//   }
+  
+// }
+function isNumberKey(evt){
+        var charCode = (evt.which) ? evt.which : evt.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57)){
+            alert("Please enter an integer")
+        
+        
+            return false;
+            return true;
+        
+    }
+        
+    } 
+    function isAlphabet(evt){
+        var charCode = (evt.which) ? evt.which : evt.keyCode
+          if (!(charCode > 31 && (charCode < 48 || charCode > 57))){
+              alert("Please enter valid text")
+          
+          
+              return false;
+              
+          return true;
+      }
+      
+      } 
+      function validnum(a) { 
+        if(a < 0 || a > 100) 
+            return false;
+        else 
+            return true;
+    } 
+    function validOrPunchTheUser(inputElement) {
+        if(!validnum(inputElement.value)) {
+            window.alert('Please enter the value between 0 to 100'); // punch the user
+            inputElement.value = ""; // take away their things
+        }
+    }
 
 
      

@@ -8,6 +8,7 @@ const ProcessModel = mongoose.model('Process');
 const GoogleCharts= require("google-charts");
 const session = require('express-session');
 application.use(session({secret: 'ssshhhhh',saveUninitialized: true,resave: true}));
+const expressValidator = require('express-validator');
 mongoose.set('useFindAndModify', false);
 // import {GoogleCharts} from 'google-charts';
 
@@ -23,6 +24,8 @@ res.render("adminHome")
 router.get("/captureProcess", (req, res)=>{
     res.render("captureProcess")
 });
+
+
 
 router.get("/processDiscovery", (req, res)=>{
     res.render("processDiscovery")
@@ -87,8 +90,9 @@ router.post("/adduser", (req, res)=>{
 });
     }
     else
-    res.render("register",{viewtitle:"Incorrect Password"});
+    res.render("register",{viewtitle:"Password not matched.."});
 });
+
 router.post("/addProcess", (req, res)=>{
     try{
     var processmodel = new ProcessModel();
@@ -125,7 +129,7 @@ router.post("/addProcess", (req, res)=>{
         return res.status(422).send(err);
     }
         else{
-       res.send('Captured Successfully');
+       res.render("captureProcess",{viewtitle:"Captured Successfully"});
     }
 });
 }
@@ -213,17 +217,22 @@ router.get('/list', (req,res) => {
     router.get('/viewById', (req, res) => {
         console.log("Inside router")
         console.log(req.query.Proc_Id);
-       if(req.query.Proc_Id!=null) {
+       if(req.query.Proc_Id) {
         ProcessModel.find({Proc_Id:req.query.Proc_Id},(err, doc) => {
             console.log(doc)
+            if(doc.length!=0){
         if (doc[0].Status=="APPROVED") {
         res.render("processList", {viewtitle:"process",process:doc[0]
         });
         console.log(doc);
         }
         else
-        res.send("Process is not Approved wait for the admin approval");
-        });
+        res.render("processViewById",{viewtitle:"Process is not Approved wait for the admin approval"});
+        }
+        else{
+            res.render("processViewById",{viewtitle : "Process is not captured!" })
+        }
+    });
     }
     else
     res.render("processViewById",{viewtitle:"Please enter the Process Id"});
@@ -232,20 +241,32 @@ router.get('/list', (req,res) => {
 router.get("/approveProcessById", (req, res)=>{
     console.log(req.query.Proc_Id);
     if(req.query.Proc_Id){
-  ProcessModel.updateOne({ Proc_Id: req.query.Proc_Id },{ Status: "APPROVED" }, (err, doc) => {
-      //console.log(doc)
-      if (!err) { res.send("APPROVED Successfully"); }         
-    else
-       res.send('Error during updating the record: ' + err);
-          });
+        ProcessModel.find({Proc_Id: req.query.Proc_Id},(err,doc)=>{
+           if(doc.length!=0){
+                if(doc[0].Status=="REQUESTED"){
+                    ProcessModel.updateOne({ Proc_Id: req.query.Proc_Id },{ Status: "APPROVED" }, (err, doc) => {
+                        //console.log(doc)
+                        if (!err) {
+                             res.render("approveProcess",{viewresult:"APPROVED Successfully"}); 
+                            }         
+                      else
+                        { res.send('Error during updating the record: ' + err);}
+                            });
+                }
+                else{
+                    res.render("approveProcess",{viewtitle : "Process is alredy approved!"})
+                }
+           }
+           else{
+            res.render("approveProcess",{viewtitle : "Process is not captured!"})
+           }
+        });
+    
         }
         else
         res.render("approveProcess",{viewtitle : "please enter the Process Id"})   
                
         });
-    
-
-
     //Router Controller for DELETE request
 router.get('/delete/:id', (req, res) => {
     //var valid = mongoose.Types.ObjectId.isValid(req.params.id);
