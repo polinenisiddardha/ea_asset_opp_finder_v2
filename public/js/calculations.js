@@ -1,3 +1,8 @@
+
+const ProcessModel = mongoose.model('Process');
+// const express = require("express");
+// const mongoose = require("mongoose");
+// const router=express.Router();
 function calculate() {
     var myBox1 = document.getElementById('mv').value;	
     var myBox2 = document.getElementById('aht').value;
@@ -114,6 +119,47 @@ function isNumberKey(evt){
             inputElement.value = ""; // take away their things
         }
     }
+
+    function getprocessid(){
+        var cname  = document.getElementById('clientName').value;
+        var subbusunit  = document.getElementById('sub_buss_unit').value;
+        console.log(cname);
+        var query={clientName:cname,Sub_Buss_Unit:subbusunit}
+        ProcessModel.find({query},(err,doc)=>{
+            console.log("i am in getprocessid function")
+            // console.log(doc);
+            if(doc.length!=0){
+                if(!err)
+                {
+                    // res.render("processviewById",{viewtitle:doc[0].Proc_Id});
+                    document.getElementById('procid').value=doc[0].Proc_Id;
+                }
+            }
+            else
+            {
+                res.render("processviewById",{viewtitle:"there is no proccess id with the above values"});
+            }
+        });
+    }
+
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[0];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }       
+        }
+      }
 
 
      

@@ -2,19 +2,22 @@ const express = require("express");
 const application = express();
  const path = require("path");
 const mongoose = require("mongoose");
-const router=express.Router();
+
 const UserModel = mongoose.model('User');
 const ProcessModel = mongoose.model('Process');
 const GoogleCharts= require("google-charts");
 const session = require('express-session');
+var uniqBy = require('lodash.uniqby');
 application.use(session({secret: 'ssshhhhh',saveUninitialized: true,resave: true}));
 
 mongoose.set('useFindAndModify', false);
 // import {GoogleCharts} from 'google-charts';
 
 // var dir = path.join(__dirname, './views/images');
-
+application.use('/user', express.static('views/images'));
+application.use(express.static(__dirname + '/public'));
 // application.use(express.static(dir));
+const router=express.Router();
 router.get("/", (req, res)=>{
     //res.render("views/adminHome")
 });
@@ -31,13 +34,53 @@ router.get("/processDiscovery", (req, res)=>{
     res.render("processDiscovery")
 });
 router.get("/processViewById", (req, res)=>{
-    res.render("processViewById")
+   
+    ProcessModel.find((err, docs) => {
+        if(!err){
+        res.render("processViewById", {list: docs});
+      
+        console.log(docs);
+        }
+        else {
+        console.log('Failed to retrieve the Course List: '+ err);
+        }
+        });
 });
+// function getprocessid(){
+//     var cname  = document.getElementById('clientName').value;
+//     var subbusunit  = document.getElementById('sub_buss_unit').value;
+//     console.log(cname);
+//     var query={clientName:cname,Sub_Buss_Unit:subbusunit}
+//     ProcessModel.find({query},(err,doc)=>{
+//         console.log("i am in getprocessid function")
+//         // console.log(doc);
+//         if(doc.length!=0){
+//             if(!err)
+//             {
+//                 // res.render("processviewById",{viewtitle:doc[0].Proc_Id});
+//                 document.getElementById('procid').value=doc[0].Proc_Id;
+//             }
+//         }
+//         else
+//         {
+//             res.render("processviewById",{viewtitle:"there is no proccess id with the above values"});
+//         }
+//     });
+// }
 router.get("/adminViewById", (req, res)=>{
      res.render("adminViewById")
  });
  router.get("/approveProcess", (req, res)=>{
-    res.render("approveProcess")
+    ProcessModel.find({Status:"REQUESTED"},(err, docs) => {
+        if(!err){
+        res.render("approveProcess", {list: docs});
+      
+        console.log(docs);
+        }
+        else {
+        console.log('Failed to retrieve the Course List: '+ err);
+        }
+        });
 });
 router.get("/processPrioritization", (req, res)=>{
     res.render("processPrioritization")
@@ -47,6 +90,9 @@ router.get("/processPrioritization", (req, res)=>{
 });
 router.get("/register", (req, res)=>{
     res.render("register")
+});
+router.get("/approved", (req, res)=>{
+    res.render("approved")
 });
 router.get("/About", (req, res)=>{
     res.render("About")
@@ -219,11 +265,11 @@ router.get('/list', (req,res) => {
         });
          
 
-    router.get('/viewById', (req, res) => {
+    router.get('/viewById/:id', (req, res) => {
         console.log("Inside router")
-        console.log(req.query.Proc_Id);
-       if(req.query.Proc_Id) {
-        ProcessModel.find({Proc_Id:req.query.Proc_Id},(err, doc) => {
+        console.log(req.params.id);
+    //    if(req.params.id) {
+        ProcessModel.find(req.params.id,(err, doc) => {
             console.log(doc)
             if(doc.length!=0){
         if (doc[0].Status=="APPROVED") {
@@ -238,40 +284,58 @@ router.get('/list', (req,res) => {
             res.render("processViewById",{viewtitle : "Process is not captured!" })
         }
     });
-    }
-    else
-    res.render("processViewById",{viewtitle:"Please enter the Process Id"});
+    // }
+    // else
+    // res.render("processViewById",{viewtitle:"Please enter the Process Id"});
         });
+router.get("/approveProcessById/:id",(req,res)=>{
+    // console.log(req)
+  if(req.params.id.match(/^[0-9a-fA-F]{24}$/)){
+      console.log(req.params.id.match(/^[0-9a-fA-F]{24}$/))
+      ProcessModel.findByIdAndUpdate(req.params.id,{Status:"APPROVED"}, (err,doc)=>{
+          console.log(doc)
+        if (!err) {
+            res.render("approved"); 
+           }         
+     else
+       { res.send('Error during updating the record: ' + err);}
 
-router.get("/approveProcessById", (req, res)=>{
-    console.log(req.query.Proc_Id);
-    if(req.query.Proc_Id){
-        ProcessModel.find({Proc_Id: req.query.Proc_Id},(err,doc)=>{
-           if(doc.length!=0){
-                if(doc[0].Status=="REQUESTED"){
-                    ProcessModel.updateOne({ Proc_Id: req.query.Proc_Id },{ Status: "APPROVED" }, (err, doc) => {
-                        //console.log(doc)
-                        if (!err) {
-                             res.render("approveProcess",{viewresult:"APPROVED Successfully"}); 
-                            }         
-                      else
-                        { res.send('Error during updating the record: ' + err);}
-                            });
-                }
-                else{
-                    res.render("approveProcess",{viewtitle : "Process is alredy approved!"})
-                }
-           }
-           else{
-            res.render("approveProcess",{viewtitle : "Process is not captured!"})
-           }
-        });
+      });
+  }
+  else{
+    res.render("approveProcess",{viewtitle : "Invalid"})  
+  }
+});
+
+// router.get("/approveProcessById/:id", (req, res)=>{
+//     console.log(req.params.id);
+//     if(req.params.id){
+//         ProcessModel.findById(req.params.id,(err,doc)=>{
+//            if(doc.length!=0){
+//                 if(doc.Status=="REQUESTED"){
+//                     ProcessModel.updateOne({ Status: "APPROVED" }, (err, doc) => {
+//                         //console.log(doc)
+//                         if (!err) {
+//                              res.render("approveProcess",{viewresult:"APPROVED Successfully"}); 
+//                             }         
+//                       else
+//                         { res.send('Error during updating the record: ' + err);}
+//                             });
+//                 }
+//                 else{
+//                     res.render("approveProcess",{viewtitle : "Process is alredy approved!"})
+//                 }
+//            }
+//            else{
+//             res.render("approveProcess",{viewtitle : "Process is not captured!"})
+//            }
+//         });
     
-        }
-        else
-        res.render("approveProcess",{viewtitle : "please enter the Process Id"})   
+//         }
+//         else
+//         res.render("approveProcess",{viewtitle : "please enter the Process Id"})   
                
-        });
+//         });
     //Router Controller for DELETE request
 router.get('/delete/:id', (req, res) => {
     //var valid = mongoose.Types.ObjectId.isValid(req.params.id);
@@ -289,4 +353,24 @@ res.send('error: please provide correct id');
     application.get('*', function(req, res){
         res.status(404).send('what???');
       });
+
+ router.get('/:id', (req, res) => {
+        ProcessModel.findById(req.params.id, (err, doc) => {
+            console.log(doc)
+            if(doc.length!=0){
+                console.log(doc.Status)
+                if (doc.Status=="APPROVED") {
+                res.render("processList", {viewtitle:"process",process:doc
+                });
+                //console.log(doc);
+                }
+                else
+                res.render("processViewById",{viewtitle:"Process is not Approved wait for the admin approval"});
+               //res.send("Process Not Approved"); 
+            }
+                else{
+                    res.render("processViewById",{viewtitle : "Process is not captured!" })
+                }
+        });
+        });
 module.exports = router;
